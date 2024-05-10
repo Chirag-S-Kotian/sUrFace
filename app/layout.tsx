@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "sUrface- a social media web app.",
+  title: "sUrface",
   description: "a advanced social media app for the daily purpose.",
 };
 
