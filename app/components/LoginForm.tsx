@@ -64,7 +64,7 @@ const LoginForm = () => {
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Sign Up
+            Login
           </button>
           <p className="mt-4 text-center text-gray-500">
             Don't have an account?{" "}
