@@ -1,8 +1,27 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const SignUpForm = () => {
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
+
+  const onSignup = async () => {
+    try {
+      const response = await axios.post("api/users/signup", user);
+      console.log("Signup  successful", response.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log("Signup failed", error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
@@ -16,9 +35,10 @@ const SignUpForm = () => {
               Username
             </label>
             <input
-              type="username"
+              type="text"
               id="username"
-              name="username"
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
               className="mt-1 p-2 w-full border rounded-md"
               placeholder="Your Username"
             />
@@ -33,7 +53,8 @@ const SignUpForm = () => {
             <input
               type="email"
               id="email"
-              name="email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
               className="mt-1 p-2 w-full border rounded-md"
               placeholder="Your email address"
             />
@@ -48,13 +69,15 @@ const SignUpForm = () => {
             <input
               type="password"
               id="password"
-              name="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
               className="mt-1 p-2 w-full border rounded-md"
               placeholder="Your password"
             />
           </div>
           <button
             type="submit"
+            onClick={onSignup}
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
             Sign Up
