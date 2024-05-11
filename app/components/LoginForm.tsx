@@ -1,8 +1,27 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const LoginForm = () => {
+  const router = useRouter();
+
+  const [user, setUser] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const onLogin = async () => {
+    try {
+      const response = await axios.post("api/users/login", user);
+      console.log("login successful", response.data);
+      router.push("/profile");
+    } catch (error: any) {
+      console.error("login failed", error.message);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full sm:w-96">
@@ -18,7 +37,8 @@ const LoginForm = () => {
             <input
               type="email"
               id="email"
-              name="email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
               className="mt-1 p-2 w-full border rounded-md"
               placeholder="Your email address"
             />
@@ -33,12 +53,14 @@ const LoginForm = () => {
             <input
               type="password"
               id="password"
-              name="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
               className="mt-1 p-2 w-full border rounded-md"
               placeholder="Your password"
             />
           </div>
           <button
+            onChange={onLogin}
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >

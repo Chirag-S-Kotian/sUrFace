@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SignUpForm = () => {
+  const router = useRouter();
   const [user, setUser] = React.useState({
     username: "",
     email: "",
     password: "",
   });
-  const router = useRouter();
 
   const onSignup = async () => {
     try {
